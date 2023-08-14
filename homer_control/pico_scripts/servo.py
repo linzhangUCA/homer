@@ -1,3 +1,7 @@
+"""
+From micropython-servo 1.0.1: https://github.com/redoxcode/micropython-servo
+"""
+
 import machine
 import math
 
