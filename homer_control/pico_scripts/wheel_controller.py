@@ -13,16 +13,16 @@ class WheelController:
         self.INA_PIN = Pin(ina_id, Pin.OUT)
         self.INB_PIN = Pin(inb_id, Pin.OUT)
         self.PWM_PIN = PWM(Pin(pwm_id))
-        self.PWM_PIN.freq(5000)
-        self.ENCA_PIN = Pin(enca_id, Pin.IN)
-        self.ENCB_PIN = Pin(encb_id, Pin.IN)
+        self.PWM_PIN.freq(1000)
+        self.ENCA_PIN = Pin(enca_id, Pin.IN, Pin.PULL_DOWN)
+        self.ENCB_PIN = Pin(encb_id, Pin.IN, Pin.PULL_DOWN)
         self.ENCA_PIN.irq(trigger=Pin.IRQ_FALLING|Pin.IRQ_RISING, handler=self.inc_counts_a)
         self.ENCB_PIN.irq(trigger=Pin.IRQ_FALLING|Pin.IRQ_RISING, handler=self.inc_counts_b)
         # Properties
         self.WHEEL_RADIUS = 0.0375  # m
         self.GEAR_RATIO = 46.8512
         self.CPR = 48
-        self.K_P = 0.1
+        self.K_P = 0.3
         self.K_I = 0.
         self.K_D = 0.
         # Variables
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     lwh = WheelController(4, 2, 6, 10, 11)
     rwh = WheelController(5, 3, 7, 12, 13)
     # lwh.set_vel(-0.44)
-    # rwh.set_vel(0.4)
+    # rwh.set_vel(-0.4)
     # for _ in range(400):
     #     print(lwh.lin_vel, rwh.lin_vel)
     #     sleep(0.01)
