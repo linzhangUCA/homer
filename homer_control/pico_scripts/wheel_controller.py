@@ -22,9 +22,9 @@ class WheelController:
         self.WHEEL_RADIUS = 0.0375  # m
         self.GEAR_RATIO = 46.8512
         self.CPR = 48
-        self.K_P = 0.64
+        self.K_P = 0.1
         self.K_I = 0.
-        self.K_D = 0.64
+        self.K_D = 0.
         # Variables
         self.wdir = 0  # wheel direction: 1: forward
         self.enc_counts = 0
@@ -76,8 +76,8 @@ class WheelController:
             self.dc = 0.
             self.stop()
 
-    def set_velocity(self, target_velocity):
-        self.ref_vel = target_velocity
+    def set_vel(self, target_vel):
+        self.ref_vel = target_vel
         self.err_sum = 0.
 
     def _forward(self, duty: float = 0.0):
@@ -107,59 +107,63 @@ class WheelController:
 # TEST
 if __name__ == '__main__':
     from time import sleep
-    lwh = WheelController(4, 2, 6, 14, 10)
-    rwh = WheelController(5, 3, 7, 16, 11)
-    # lwh.set_velocity(0.32)
-    # rwh.set_velocity(0.32)
+    lwh = WheelController(4, 2, 6, 10, 11)
+    rwh = WheelController(5, 3, 7, 12, 13)
+    # lwh.set_vel(-0.44)
+    # rwh.set_vel(0.4)
+    # for _ in range(400):
+    #     print(lwh.lin_vel, rwh.lin_vel)
+    #     sleep(0.01)
     for d in range(10):
-        lwh.set_velocity(d/10)
-        rwh.set_velocity(d/10)
+        lwh.set_vel(d/10)
+        rwh.set_vel(d/10)
         print(lwh.lin_vel, rwh.lin_vel)
         sleep(0.5)
     print(lwh.lin_vel, rwh.lin_vel)
     for d in reversed(range(10)):
-        lwh.set_velocity(d/10)
-        rwh.set_velocity(d/10)
+        lwh.set_vel(d/10)
+        rwh.set_vel(d/10)
         print(lwh.lin_vel, rwh.lin_vel)
         sleep(0.5)
     print(lwh.lin_vel, rwh.lin_vel)
     for d in range(10):
-        lwh.set_velocity(-d/10)
-        rwh.set_velocity(-d/10)
+        lwh.set_vel(-d/10)
+        rwh.set_vel(-d/10)
         print(lwh.lin_vel, rwh.lin_vel)
         sleep(0.5)
     print(lwh.lin_vel, rwh.lin_vel)
     for d in reversed(range(10)):
-        lwh.set_velocity(-d/10)
-        rwh.set_velocity(-d/10)
+        lwh.set_vel(-d/10)
+        rwh.set_vel(-d/10)
         print(lwh.lin_vel, rwh.lin_vel)
         sleep(0.5)
     print(lwh.lin_vel, rwh.lin_vel)
     lwh.controller_timer.deinit()
     rwh.controller_timer.deinit()
+
     # for d in range(100):
     #     lwh._forward(duty=d/100)
     #     rwh._forward(duty=d/100)
     #     # print(lwh.enc_counts, rwh.enc_counts)
-    #     print(lwh.lin_vel, rwh.lin_vel)
+    #     # print(lwh.lin_vel, rwh.lin_vel)
     #     sleep(0.04)
     # for d in reversed(range(100)):
     #     lwh._forward(duty=d/100)
     #     rwh._forward(duty=d/100)
     #     # print(lwh.enc_counts, rwh.enc_counts)
-    #     print(lwh.lin_vel, rwh.lin_vel)
+    #     # print(lwh.lin_vel, rwh.lin_vel)
     #     sleep(0.04)
     # for d in range(100):
     #     lwh._backward(duty=d/100)
     #     rwh._backward(duty=d/100)
     #     # print(lwh.enc_counts, rwh.enc_counts)
-    #     print(lwh.lin_vel, rwh.lin_vel)
+    #     # print(lwh.lin_vel, rwh.lin_vel)
     #     sleep(0.04)
     # for d in reversed(range(100)):
     #     lwh._backward(duty=d/100)
     #     rwh._backward(duty=d/100)
     #     # print(lwh.enc_counts, rwh.enc_counts)
-    #     print(lwh.lin_vel, rwh.lin_vel)
+    #     # print(lwh.lin_vel, rwh.lin_vel)
     #     sleep(0.04)
     lwh.stop()
     rwh.stop()
