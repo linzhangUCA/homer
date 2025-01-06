@@ -34,19 +34,19 @@ if __name__ == '__main__':
     for d in range(200):  # ramp up
         w.forward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear: {w.lin_vel} m/s")
     for d in reversed(range(200)):  # ramp down
         w.forward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear: {w.lin_vel} m/s")
     # Reverse
     for d in range(200):  # ramp up
         w.backward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear: {w.lin_vel} m/s")
     for d in reversed(range(200)):  # ramp down
         w.backward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear: {w.lin_vel} m/s")
 
     w.stop()
