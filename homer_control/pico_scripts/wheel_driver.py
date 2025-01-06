@@ -7,7 +7,7 @@ class WheelDriver(SensoredMotorDriver):
     def __init__(self, driver_ids, encoder_ids):
         # Pin configuration
         super().__init__(driver_ids, encoder_ids)  # call super class's "__init__"
-        self.vel_mointor = Timer(mode=Timer.PERIODIC, freq=100, callback=self.compute_velocity)
+        self.vel_probe = Timer(mode=Timer.PERIODIC, freq=100, callback=self.exam_velocity)
         # Variables
         self.ang_vel = 0.
         self.lin_vel = 0.
@@ -15,7 +15,7 @@ class WheelDriver(SensoredMotorDriver):
         # Properties
         self.WHEEL_RADIUS = 0.032  # diameter in mm -> radius in m  
     
-    def compute_velocity(self, timer):
+    def exam_velocity(self, timer):
         delta_pulses = self.pulses - self.prev_pulses
         self.prev_pulses = self.pulses
         delta_revolutions = delta_pulses / self.PPR
@@ -26,27 +26,27 @@ class WheelDriver(SensoredMotorDriver):
 
 if __name__ == '__main__':
     from time import sleep
-    m = WheelDriver((11, 12, 13), (14, 15))
+    w = WheelDriver((11, 12, 13), (14, 15))
     # m = WheelDriver((18, 19, 20), (17, 16))
     prev_counts = 0
 
     # Forward
     for d in range(200):  # ramp up
-        m.forward(int(65025 / 200 * d))
+        w.forward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {m.ang_vel} rad/s, linear velocity: {m.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
     for d in reversed(range(200)):  # ramp down
-        m.forward(int(65025 / 200 * d))
+        w.forward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {m.ang_vel} rad/s, linear velocity: {m.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
     # Reverse
     for d in range(200):  # ramp up
-        m.backward(int(65025 / 200 * d))
+        w.backward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {m.ang_vel} rad/s, linear velocity: {m.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
     for d in reversed(range(200)):  # ramp down
-        m.backward(int(65025 / 200 * d))
+        w.backward(int(65025 / 200 * d))
         sleep(0.02)
-        print(f"wheel velocity: \n\tangular: {m.ang_vel} rad/s, linear velocity: {m.lin_vel} m/s")
+        print(f"wheel velocity: \n\tangular: {w.ang_vel} rad/s, linear velocity: {w.lin_vel} m/s")
 
-    m.stop()
+    w.stop()
