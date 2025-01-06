@@ -11,7 +11,7 @@ class WheelController(WheelDriver):
         self.target_vel = 0.
         self.err = 0.
         self.prev_err = 0.
-        self.sum_err = 0.
+        self.acc_err = 0.
         self.diff_err = 0.
         self.duty = 0
         # Properties
@@ -21,10 +21,10 @@ class WheelController(WheelDriver):
     
     def regulate_velocity(self, timer):
         self.err = self.target_vel - self.lin_vel
-        self.sum_err += self.err  # err_sum = err_sum + err
+        self.acc_err += self.err  # err_sum = err_sum + err
         self.diff_err = self.err - self.prev_err
         self.prev_err = self.err
-        d_duty = self.K_P * self.err + self.K_I * self.sum_err + self.K_D * self.diff_err  # compute change of duty cycle with PID
+        d_duty = self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err  # compute change of duty cycle with PID
         self.duty += d_duty
         if self.duty > 0:  # forward
             if self.duty > 65025:
@@ -40,25 +40,25 @@ class WheelController(WheelDriver):
         if self.target_vel == 0:
             self.stop()
 
-    def set_vel(self, target_vel):
+    def set_lin_vel(self, target_vel):
         """
         Set a reference LINEAR VELOCITY for this wheel 
         """
         self.target_vel = target_vel
-        self.sum_err = 0.
+        self.acc_err = 0.
 
 # TEST
 if __name__ == '__main__':
     from time import sleep
-    w = WheelController((11, 12, 13), (14, 15))
     # w = WheelController((18, 19, 20), (17, 16))
+    w = WheelController((11, 12, 13), (14, 15))
     print(f"target velocity: {w.target_vel}")
     for v in range(1, 11):
-        w.set_vel(v / 10)
+        w.set_lin_vel(v / 10)
         sleep(1)
         print(f"target velocity: {w.target_vel}, actual velocity: {w.lin_vel}")
     for v in reversed(range(10)):
-        w.set_vel(v / 10)
+        w.set_lin_vel(v / 10)
         sleep(1)
         print(f"target velocity: {w.target_vel}, actual velocity: {w.lin_vel}")
-    w.set_vel(0)
+    w.set_lin_vel(0)
