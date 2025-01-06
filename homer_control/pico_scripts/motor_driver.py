@@ -29,7 +29,17 @@ if __name__ == '__main__':
     from time import sleep
     m = MotorDriver(11, 12, 13)
     # m = MotorDriver(18, 19, 20)
-    m.forward(40000)
-    sleep(4)
+    for d in range(200):  # ramp up
+        m.forward(int(65025 / 200 * d))
+        sleep(0.02)
+    for d in reversed(range(200)):  # ramp up
+        m.forward(int(65025 / 200 * d))
+        sleep(0.02)
+    for d in range(200):  # ramp up
+        m.backward(int(65025 / 200 * d))
+        sleep(0.02)
+    for d in reversed(range(200)):  # ramp up
+        m.backward(int(65025 / 200 * d))
+        sleep(0.02)
     m.stop()
 
