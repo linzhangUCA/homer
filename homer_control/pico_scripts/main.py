@@ -3,21 +3,21 @@ Rename this script to main.py, then upload to the pico board.
 """
 import sys
 import select
-from pico_controller import Robot
-from time import sleep_ms
+from diff_drive_controller import DiffDriveController
 
+# SETUP
+# Instantiate robot
+homer = DiffDriveController(left_ids=((18, 19, 20), (17, 16)), right_ids=((11, 12, 13), (14, 15)))
+# Create a poll to receive messages from host machine
+cmd_vel_listener = select.poll()
+cmd_vel_listener.register(sys.stdin, select.POLLIN)
+event = cmd_vel_listener.poll()
 
-homeplate_robot = Robot(left_motor_pins=(16, 17, 2, 3), right_motor_pins=(18, 19, 4, 5))
-cmd_vel_poller = select.poll()
-cmd_vel_poller.register(sys.stdin, select.POLLIN)
-event = cmd_vel_poller.poll()
+# LOOP
 while True:
-    # read data from serial
-    for cmd_vel_msg, _ in event:
-        cmd_vel_buffer = cmd_vel_msg.readline().rstrip().split(',')
-        if len(cmd_vel_buffer) == 2:
-            target_lin, target_ang = float(cmd_vel_buffer[0]), float(cmd_vel_buffer[1])
-            homeplate_robot.set_velocity(target_lin, target_ang)
-            homeplate_robot.led.value(1)
-    else:
-        homeplate_robot.led.value(0)
+    print(homer.lin_vel, homer.ang_vel)  # transmit actual robot velocity to host machine
+    for msg, _ in event:
+        buffer = msg.readline().rstrip().split(',')
+        if len(buffer) == 2:
+            target_lin_vel, target_ang_vel = float(buffer[0]), float(buffer[1])
+            homer.set_vel(target_lin_vel, target_ang_vel)

@@ -1,50 +1,39 @@
-import sys
 from machine import Timer
 from wheel_controller import WheelController
 
 class DiffDriveController:
-    def __init__(self, left_pins: tuple, right_pins: tuple) -> None:
+    def __init__(self, left_ids: tuple, right_ids: tuple) -> None:
         # Wheels
-        self.left_wheel = WheelController(*left_pins)
-        self.right_wheel = WheelController(*right_pins)        
+        self.left_wheel = WheelController(*left_ids)
+        self.right_wheel = WheelController(*right_ids)        
+        self.velmon_timer = Timer(mode=Timer.PERIODIC, freq=100, callback=self.monitor_velocity)
         # Properties
-        self.WHEEL_SEP = 0.207
+        self.WHEEL_SEP = 0.21  # wheel separation distance
         # Variables
         self.lin_vel = 0.
         self.ang_vel = 0.
-        # Velocity monitor timer
-        self.velmon_timer = Timer()
-        self.velmon_timer.init(freq=100, callback=self.velmon_cb)
 
-    def velmon_cb(self, timer):
-        self.lin_vel = 0.5 * (self.left_wheel.lin_vel + self.right_wheel.lin_vel)
-        self.ang_vel = (self.right_wheel.lin_vel - self.left_wheel.lin_vel) / self.WHEEL_SEP
+    def monitor_velocity(self, timer):
+        self.lin_vel = 0.5 * (self.left_wheel.lin_vel + self.right_wheel.lin_vel)  # robot's linear velocity
+        self.ang_vel = (self.right_wheel.lin_vel - self.left_wheel.lin_vel) / self.WHEEL_SEP  # robot's angular velocity
 
-    def set_vel(self, target_lin, target_ang):
-        v_l = target_lin - 0.5 * (target_ang * self.WHEEL_SEP)
-        v_r = target_lin + 0.5 * (target_ang * self.WHEEL_SEP)
-        self.left_wheel.set_vel(v_l)
-        self.right_wheel.set_vel(v_r)
+    def set_vel(self, target_lin_vel, target_ang_vel):
+        left_target = target_lin_vel - 0.5 * (target_ang_vel * self.WHEEL_SEP)
+        right_target = target_lin_vel + 0.5 * (target_ang_vel * self.WHEEL_SEP)
+        self.left_wheel.set_lin_vel(left_target)
+        self.right_wheel.set_lin_vel(right_target)
 
 
 # TEST
 if __name__=='__main__':
     from time import sleep
-    bot = DiffDriveController(left_pins=(4, 2, 6, 10, 11), right_pins=(5, 3, 7, 12, 13))
-    bot.set_vel(0.4, -2.0)
-    for _ in range(50):
-        print(bot.lin_vel, bot.ang_vel)
-        sleep(0.1)
-    bot.set_vel(-0.45, 2.5)
-    for _ in range(50):
-        print(bot.lin_vel, bot.ang_vel)
-        sleep(0.1)
-    
-    bot.velmon_timer.deinit()
-    bot.left_wheel.controller_timer.deinit()
-    bot.right_wheel.controller_timer.deinit()
-    bot.left_wheel.stop()
-    bot.right_wheel.stop()
-    bot.left_wheel.halt()
-    bot.right_wheel.halt()
-
+    from math import pi, sin, cos
+    bot = DiffDriveController(left_ids=((18, 19, 20), (17, 16)), right_ids=((11, 12, 13), (14, 15)))
+    vel_candidates = range(5)
+    for i in range(10):
+        for j in range(10):
+            tl, ta = sin(i / 10 * 2 * pi), 2 * pi * cos(j / 10 * 2 * pi)
+            bot.set_vel(tl, ta)
+            sleep(0.75)
+            print(f"target vel: {tl} m/s, {ta} rad/s\nactual vel: {bot.lin_vel} m/s, {bot.ang_vel} rad/s\n")
+    bot.set_vel(0., 0.)
