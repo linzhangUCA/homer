@@ -36,10 +36,7 @@ def generate_launch_description():
         ),
     )
 
-    odometry_node = Node(
-        package="homer_control",
-        executable="odometry"
-    )
+    driver_node = Node(package="homer_control", executable="driver")
 
     robot_description = ParameterValue(
         Command(["xacro ", LaunchConfiguration("model")]), value_type=str
@@ -73,12 +70,10 @@ def generate_launch_description():
             sim_time_arg,
             model_arg,
             rviz_arg,
-            odometry_node,
+            driver_node,
             rplidar_launch,
             # joint_state_publisher_node,
             # robot_state_publisher_node,
             # rviz_node,
         ]
     )
-
-
