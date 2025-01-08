@@ -20,12 +20,10 @@ setup(
     zip_safe=True,
     maintainer="linzhanguca",
     maintainer_email="lzhang12@uca.edu",
-    description="Control HomeR velocity and estimate odometry",
+    description="Control HomeR's velocity and publish odometry",
     license="GPL3",
     tests_require=["pytest"],
     entry_points={
-        "console_scripts": [
-            "regulate_velocity = homer_control.velocity_control_node:main"
-        ],
+        "console_scripts": ["driver = homer_control.driver:main"],
     },
 )
