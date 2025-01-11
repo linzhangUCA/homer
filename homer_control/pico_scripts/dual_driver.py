@@ -1,6 +1,6 @@
 from motor_driver import MotorDriver
 
-class DifferentialDriver:
+class DualDriver:
 
     def __init__(self, left_pin_ids, right_pin_ids):
         self.left_motor = MotorDriver(*left_pin_ids)
@@ -28,7 +28,7 @@ class DifferentialDriver:
         
 if __name__ == '__main__':
     from time import sleep
-    dmd = DifferentialDriver((11, 12, 13), (18, 19, 20))
+    dmd = DualDriver((2, 3, 4), (6, 7, 8))
     dmd.forward(40000)
     sleep(2)
     dmd.stop()

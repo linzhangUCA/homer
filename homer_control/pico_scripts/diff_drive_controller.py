@@ -1,12 +1,13 @@
 from machine import Timer
 from wheel_controller import WheelController
+import sys
 
 class DiffDriveController:
     def __init__(self, left_ids: tuple, right_ids: tuple) -> None:
         # Wheels
         self.left_wheel = WheelController(*left_ids)
         self.right_wheel = WheelController(*right_ids)        
-        self.velmon_timer = Timer(mode=Timer.PERIODIC, freq=100, callback=self.monitor_velocity)
+        self.velmon_timer = Timer(mode=Timer.PERIODIC, freq=50, callback=self.monitor_velocity)
         # Properties
         self.WHEEL_SEP = 0.21  # wheel separation distance
         # Variables
@@ -28,7 +29,7 @@ class DiffDriveController:
 if __name__=='__main__':
     from time import sleep
     from math import pi, sin, cos
-    bot = DiffDriveController(left_ids=((18, 19, 20), (17, 16)), right_ids=((11, 12, 13), (14, 15)))
+    bot = DiffDriveController(left_ids=((2, 3, 4), (20, 21)), right_ids=((6, 7, 8), (10, 11)))
     vel_candidates = range(5)
     for i in range(10):
         for j in range(10):
