@@ -15,7 +15,7 @@ event = cmd_vel_listener.poll()
 
 # LOOP
 while True:
-    print(homer.lin_vel, homer.ang_vel)  # transmit actual robot velocity to host machine
+    # print(homer.lin_vel, homer.ang_vel)  # transmit actual robot velocity to host machine
     for msg, _ in event:
         buffer = msg.readline().rstrip().split(',')
         if len(buffer) == 2:

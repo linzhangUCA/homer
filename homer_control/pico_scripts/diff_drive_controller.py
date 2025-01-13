@@ -15,8 +15,14 @@ class DiffDriveController:
         self.ang_vel = 0.
 
     def monitor_velocity(self, timer):
+        """
+        Compute and transmit robot velocity
+        Note - if transmitting activated, Pico may stop responding.
+        Nuke the Pico if further changes on code are needed.
+        """
         self.lin_vel = 0.5 * (self.left_wheel.lin_vel + self.right_wheel.lin_vel)  # robot's linear velocity
         self.ang_vel = (self.right_wheel.lin_vel - self.left_wheel.lin_vel) / self.WHEEL_SEP  # robot's angular velocity
+        # sys.stdout.write(f"{self.lin_vel},{self.ang_vel}\n")  # uncomment to transmit robot velocity
 
     def set_vel(self, target_lin_vel, target_ang_vel):
         left_target = target_lin_vel - 0.5 * (target_ang_vel * self.WHEEL_SEP)
