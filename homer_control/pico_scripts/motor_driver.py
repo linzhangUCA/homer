@@ -27,8 +27,8 @@ class MotorDriver:
 
 if __name__ == '__main__':
     from time import sleep
-    m = MotorDriver(11, 12, 13)
-    # m = MotorDriver(18, 19, 20)
+    # m = MotorDriver(2, 3, 4)
+    m = MotorDriver(6, 7, 8)
     for d in range(200):  # ramp up
         m.forward(int(65025 / 200 * d))
         sleep(0.02)

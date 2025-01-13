@@ -24,8 +24,8 @@ class SensoredMotorDriver(MotorDriver):
 if __name__ == '__main__':
     from time import sleep
     from math import pi
-    m = SensoredMotorDriver((11, 12, 13), (14, 15))
-    # m = SensoredMotorDriver((18, 19, 20), (17, 16))
+    # m = SensoredMotorDriver((2, 3, 4), (20, 21))
+    m = SensoredMotorDriver((6, 7, 8), (10, 11))
     prev_pulses = 0
 
     # Forward

@@ -16,8 +16,8 @@ class WheelController(WheelDriver):
         self.duty = 0
         # Properties
         self.K_P = 6500.
-        self.K_I = 120.
-        self.K_D = 0.
+        self.K_I = 100.
+        self.K_D = 200.
     
     def regulate_velocity(self, timer):
         self.err = self.target_vel - self.lin_vel
@@ -50,8 +50,8 @@ class WheelController(WheelDriver):
 # TEST
 if __name__ == '__main__':
     from time import sleep
-    # w = WheelController((18, 19, 20), (17, 16))
-    w = WheelController((11, 12, 13), (14, 15))
+    w = WheelController((2, 3, 4), (20, 21))
+    # w = WheelController((6, 7, 8), (10, 11))
     print(f"target velocity: {w.target_vel}")
     for v in range(1, 11):
         w.set_lin_vel(v / 10)

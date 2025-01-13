@@ -26,8 +26,8 @@ class WheelDriver(SensoredMotorDriver):
 
 if __name__ == '__main__':
     from time import sleep
-    w = WheelDriver((11, 12, 13), (14, 15))
-    # m = WheelDriver((18, 19, 20), (17, 16))
+    # w = WheelDriver((2, 3, 4), (20, 21))
+    w = WheelDriver((6, 7, 8), (10, 11))
     prev_counts = 0
 
     # Forward

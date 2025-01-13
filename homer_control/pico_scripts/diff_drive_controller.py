@@ -1,12 +1,13 @@
 from machine import Timer
 from wheel_controller import WheelController
+import sys
 
 class DiffDriveController:
     def __init__(self, left_ids: tuple, right_ids: tuple) -> None:
         # Wheels
         self.left_wheel = WheelController(*left_ids)
         self.right_wheel = WheelController(*right_ids)        
-        self.velmon_timer = Timer(mode=Timer.PERIODIC, freq=100, callback=self.monitor_velocity)
+        self.velmon_timer = Timer(mode=Timer.PERIODIC, freq=50, callback=self.monitor_velocity)
         # Properties
         self.WHEEL_SEP = 0.21  # wheel separation distance
         # Variables
@@ -14,8 +15,14 @@ class DiffDriveController:
         self.ang_vel = 0.
 
     def monitor_velocity(self, timer):
+        """
+        Compute and transmit robot velocity
+        Note - if transmitting activated, Pico may stop responding.
+        Nuke the Pico if further changes on code are needed.
+        """
         self.lin_vel = 0.5 * (self.left_wheel.lin_vel + self.right_wheel.lin_vel)  # robot's linear velocity
         self.ang_vel = (self.right_wheel.lin_vel - self.left_wheel.lin_vel) / self.WHEEL_SEP  # robot's angular velocity
+        # sys.stdout.write(f"{self.lin_vel},{self.ang_vel}\n")  # uncomment to transmit robot velocity
 
     def set_vel(self, target_lin_vel, target_ang_vel):
         left_target = target_lin_vel - 0.5 * (target_ang_vel * self.WHEEL_SEP)
@@ -28,7 +35,7 @@ class DiffDriveController:
 if __name__=='__main__':
     from time import sleep
     from math import pi, sin, cos
-    bot = DiffDriveController(left_ids=((18, 19, 20), (17, 16)), right_ids=((11, 12, 13), (14, 15)))
+    bot = DiffDriveController(left_ids=((2, 3, 4), (20, 21)), right_ids=((6, 7, 8), (10, 11)))
     vel_candidates = range(5)
     for i in range(10):
         for j in range(10):
