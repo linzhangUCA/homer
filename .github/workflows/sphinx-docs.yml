@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
+      - name: Checkout documentation branch
+        run: |
+          git checkout 2324
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
