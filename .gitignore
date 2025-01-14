@@ -164,4 +164,18 @@ cython_debug/
 
 # micro-pico
 .micropico
+
+# Sphinx
+docs/_build/
+_autosummary/
+
+# OS generated files
+.DS_Store
+
+# Editor/IDE specific files
 .vscode/
+.idea/
+
+# Temporary files
+*.swp
+*.swo
