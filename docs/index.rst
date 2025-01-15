@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-HomeR documentation
+Welcome to HomeR' Base
 ===================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+Home(plate)R(obot) is a robotics education platform developed for Robotics 1 & 2 at University of Central Arkansas.
+Keep reading if you are curious about autonomous navigation.
 
 
 .. toctree::
