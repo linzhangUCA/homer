@@ -68,9 +68,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 .pybuilder/
 target/
@@ -164,4 +161,6 @@ cython_debug/
 
 # micro-pico
 .micropico
-.vscode/
+
+# Sphinx
+_build/
