@@ -26,3 +26,8 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
 html_logo = "images/homer_logo.png"
 html_theme_options = {"logo_only": False}
+extensions = [
+    # "sphinx.ext.autodoc",
+    # "sphinx.ext.napoleon",
+    "sphinx.ext.githubpages",
+]
