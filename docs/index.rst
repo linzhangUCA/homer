@@ -12,5 +12,7 @@ Keep reading if you are curious about autonomous mobile robot and you want to ma
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Guides:
+
+   user/pico_wiring
 
