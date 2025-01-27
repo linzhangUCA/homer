@@ -6,29 +6,26 @@ class WheelController(WheelDriver):
     def __init__(self, driver_ids, encoder_ids):
         # Pin configuration
         super().__init__(driver_ids, encoder_ids)  # call super class's "__init__"
-        self.vel_executor = Timer(
-            mode=Timer.PERIODIC, freq=50, callback=self.regulate_velocity
-        )
+        self.vel_executor = Timer(mode=Timer.PERIODIC, freq=50, callback=self.regulate_velocity)
         # Variables
-        self.target_vel = 0.0
-        self.err = 0.0
-        self.prev_err = 0.0
-        self.acc_err = 0.0
-        self.diff_err = 0.0
+        self.target_vel = 0.
+        self.err = 0.
+        self.prev_err = 0.
+        self.acc_err = 0.
+        self.diff_err = 0.
         self.duty = 0
         # Properties
-        self.K_P = 10000.0
-        self.K_I = 50000.0
-        self.K_D = 10000.0
-
+        self.K_P = 6500.
+        self.K_I = 100.
+        self.K_D = 200.
+    
     def regulate_velocity(self, timer):
         self.err = self.target_vel - self.lin_vel
         self.acc_err += self.err  # err_sum = err_sum + err
         self.diff_err = self.err - self.prev_err
         self.prev_err = self.err
-        self.duty = (
-            self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err
-        )  # compute change of duty cycle with PID
+        d_duty = self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err  # compute change of duty cycle with PID
+        self.duty += d_duty
         if self.duty > 0:  # forward
             if self.duty > 65025:
                 self.duty = 65025
@@ -45,16 +42,14 @@ class WheelController(WheelDriver):
 
     def set_lin_vel(self, target_vel):
         """
-        Set a reference LINEAR VELOCITY for this wheel
+        Set a reference LINEAR VELOCITY for this wheel 
         """
         self.target_vel = target_vel
-        self.acc_err = 0.0
-
+        self.acc_err = 0.
 
 # TEST
-if __name__ == "__main__":
+if __name__ == '__main__':
     from time import sleep
-
     w = WheelController((2, 3, 4), (20, 21))
     # w = WheelController((6, 7, 8), (10, 11))
     print(f"target velocity: {w.target_vel}")
@@ -67,4 +62,3 @@ if __name__ == "__main__":
         sleep(1)
         print(f"target velocity: {w.target_vel}, actual velocity: {w.lin_vel}")
     w.set_lin_vel(0)
-
