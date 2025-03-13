@@ -33,7 +33,7 @@ class VelocityController(Node):
         )
         self.odom_pub_timer = self.create_timer(0.02, self.odom_pub_cb)
         # Create transformations
-        self.base_foorprint_broadcaster = StaticTransformBroadcaster(self)
+        # self.base_foorprint_broadcaster = StaticTransformBroadcaster(self)
         self.odom_base_broadcaster = TransformBroadcaster(self)
         self.base_lidar_broadcaster = StaticTransformBroadcaster(self)
         # variables
@@ -78,18 +78,18 @@ class VelocityController(Node):
         quat = quaternion_about_axis(self.th, (0, 0, 1))
         self.prev_ts = self.curr_ts
         # publish base_link to base_footprint transform
-        base_footprint_trans = TransformStamped()
-        base_footprint_trans.header.stamp = self.curr_ts.to_msg()
-        base_footprint_trans.header.frame_id = "base_link"
-        base_footprint_trans.child_frame_id = "base_footprint"
-        base_footprint_trans.transform.translation.x = 0.0
-        base_footprint_trans.transform.translation.y = 0.0
-        base_footprint_trans.transform.translation.z = -0.0375
-        base_footprint_trans.transform.rotation.x = 0.0
-        base_footprint_trans.transform.rotation.y = 0.0
-        base_footprint_trans.transform.rotation.z = 0.0
-        base_footprint_trans.transform.rotation.w = 1.0
-        self.base_lidar_broadcaster.sendTransform(base_footprint_trans)
+        # base_footprint_trans = TransformStamped()
+        # base_footprint_trans.header.stamp = self.curr_ts.to_msg()
+        # base_footprint_trans.header.frame_id = "base_link"
+        # base_footprint_trans.child_frame_id = "base_footprint"
+        # base_footprint_trans.transform.translation.x = 0.0
+        # base_footprint_trans.transform.translation.y = 0.0
+        # base_footprint_trans.transform.translation.z = -0.0375
+        # base_footprint_trans.transform.rotation.x = 0.0
+        # base_footprint_trans.transform.rotation.y = 0.0
+        # base_footprint_trans.transform.rotation.z = 0.0
+        # base_footprint_trans.transform.rotation.w = 1.0
+        # self.base_lidar_broadcaster.sendTransform(base_footprint_trans)
         # publish base_link to lidar_link transform
         base_lidar_trans = TransformStamped()
         base_lidar_trans.header.stamp = self.curr_ts.to_msg()
