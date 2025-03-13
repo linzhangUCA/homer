@@ -56,7 +56,9 @@ class VelocityController(Node):
             if len(vels) == 2:
                 self.lin_vel = float(vels[0])
                 self.ang_vel = float(vels[1])
-        self.get_logger().info(self.lin_vel, self.ang_vel)
+        self.get_logger().info(
+            f"HomeR's real velocity\nlinear: {self.lin_vel}, angular: {self.ang_vel}"
+        )
 
     def set_vel(self, msg):
         targ_lin = msg.linear.x
