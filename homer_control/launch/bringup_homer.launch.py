@@ -31,7 +31,7 @@ def generate_launch_description():
             "--y",
             "0",
             "--z",
-            "-0.032",  # comply to WHEEL_RADIUS
+            "-0.0375",
             "--yaw",
             "0",
             "--pitch",
