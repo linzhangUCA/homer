@@ -33,7 +33,6 @@ class VelocityController(Node):
         )
         self.odom_pub_timer = self.create_timer(0.02, self.odom_pub_cb)
         # Create transformations
-        # self.base_foorprint_broadcaster = StaticTransformBroadcaster(self)
         self.odom_base_broadcaster = TransformBroadcaster(self)
         self.base_lidar_broadcaster = StaticTransformBroadcaster(self)
         # variables
@@ -77,33 +76,20 @@ class VelocityController(Node):
             self.th += 2 * pi
         quat = quaternion_about_axis(self.th, (0, 0, 1))
         self.prev_ts = self.curr_ts
-        # publish base_link to base_footprint transform
-        # base_footprint_trans = TransformStamped()
-        # base_footprint_trans.header.stamp = self.curr_ts.to_msg()
-        # base_footprint_trans.header.frame_id = "base_link"
-        # base_footprint_trans.child_frame_id = "base_footprint"
-        # base_footprint_trans.transform.translation.x = 0.0
-        # base_footprint_trans.transform.translation.y = 0.0
-        # base_footprint_trans.transform.translation.z = -0.0375
-        # base_footprint_trans.transform.rotation.x = 0.0
-        # base_footprint_trans.transform.rotation.y = 0.0
-        # base_footprint_trans.transform.rotation.z = 0.0
-        # base_footprint_trans.transform.rotation.w = 1.0
-        # self.base_lidar_broadcaster.sendTransform(base_footprint_trans)
         # publish base_link to lidar_link transform
-        base_lidar_trans = TransformStamped()
-        base_lidar_trans.header.stamp = self.curr_ts.to_msg()
-        base_lidar_trans.header.frame_id = "base_link"
-        base_lidar_trans.child_frame_id = "lidar_link"
-        base_lidar_trans.transform.translation.x = 0.0
-        base_lidar_trans.transform.translation.y = 0.0
-        base_lidar_trans.transform.translation.z = 0.093
-        lidar_quat = quaternion_about_axis(pi, (0, 0, 1))
-        base_lidar_trans.transform.rotation.x = lidar_quat[0]
-        base_lidar_trans.transform.rotation.y = lidar_quat[1]
-        base_lidar_trans.transform.rotation.z = lidar_quat[2]
-        base_lidar_trans.transform.rotation.w = lidar_quat[3]
-        self.base_lidar_broadcaster.sendTransform(base_lidar_trans)
+        # base_lidar_trans = TransformStamped()
+        # base_lidar_trans.header.stamp = self.curr_ts.to_msg()
+        # base_lidar_trans.header.frame_id = "base_link"
+        # base_lidar_trans.child_frame_id = "lidar_link"
+        # base_lidar_trans.transform.translation.x = 0.0
+        # base_lidar_trans.transform.translation.y = 0.0
+        # base_lidar_trans.transform.translation.z = 0.093
+        # lidar_quat = quaternion_about_axis(pi, (0, 0, 1))
+        # base_lidar_trans.transform.rotation.x = lidar_quat[0]
+        # base_lidar_trans.transform.rotation.y = lidar_quat[1]
+        # base_lidar_trans.transform.rotation.z = lidar_quat[2]
+        # base_lidar_trans.transform.rotation.w = lidar_quat[3]
+        # self.base_lidar_broadcaster.sendTransform(base_lidar_trans)
         # publish odom to base_link transform
         odom_base_trans = TransformStamped()
         odom_base_trans.header.stamp = self.curr_ts.to_msg()
@@ -136,14 +122,8 @@ class VelocityController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-
     velocity_controller = VelocityController()
-
     rclpy.spin(velocity_controller)
-
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
     velocity_controller.destroy_node()
     rclpy.shutdown()
 
