@@ -7,7 +7,7 @@ from diff_drive_controller import DiffDriveController
 
 # SETUP
 # Instantiate robot
-homer = DiffDriveController(left_ids=((18, 19, 20), (17, 16)), right_ids=((11, 12, 13), (14, 15)))
+homer = DiffDriveController(left_ids=((2, 3, 4), (20, 21)), right_ids=((6, 7, 8), (10, 11)))
 # Create a poll to receive messages from host machine
 cmd_vel_listener = select.poll()
 cmd_vel_listener.register(sys.stdin, select.POLLIN)
