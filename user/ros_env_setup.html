@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assembly Guide &mdash; HomeR  documentation</title>
+  <title>Setup ROS Environment &mdash; HomeR  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -22,8 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Wiring Guide" href="wiring.html" />
-    <link rel="prev" title="Welcome to HomeR’ Base" href="../index.html" /> 
+    <link rel="prev" title="Autonomous Navigation with SLAM" href="nav_slam.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,16 +47,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">User Guides:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Assembly Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prepare-mounting-nuts">Prepare Mounting Nuts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#part-list">Part List</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Assembly Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nav_slam.html">Autonomous Navigation with SLAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ros_env_setup.html">Setup ROS Environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup ROS Environment</a></li>
 </ul>
 
         </div>
@@ -74,9 +67,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Assembly Guide</li>
+      <li class="breadcrumb-item active">Setup ROS Environment</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/user/assembly.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/user/ros_env_setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -84,62 +77,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="assembly-guide">
-<h1><a class="toc-backref" href="#id1" role="doc-backlink">Assembly Guide</a><a class="headerlink" href="#assembly-guide" title="Link to this heading"></a></h1>
-<nav class="contents" id="table-of-contents">
-<p class="topic-title">Table of Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#assembly-guide" id="id1">Assembly Guide</a></p>
-<ul>
-<li><p><a class="reference internal" href="#prepare-mounting-nuts" id="id2">Prepare Mounting Nuts</a></p></li>
-</ul>
-</li>
-</ul>
-</nav>
-<section id="prepare-mounting-nuts">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">Prepare Mounting Nuts</a><a class="headerlink" href="#prepare-mounting-nuts" title="Link to this heading"></a></h2>
-<p>Drop nuts into the hexagonal pockets on the bottom side of the base for later usage.</p>
-<section id="part-list">
-<h3>Part List<a class="headerlink" href="#part-list" title="Link to this heading"></a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Item</p></th>
-<th class="head"><p>Qty.</p></th>
-<th class="head"><p>Note</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>M2.5 Nuts</p></td>
-<td><p>10</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>M3 Nuts</p></td>
-<td><p>5</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>M2.5*6 Standoffs</p></td>
-<td><p>6</p></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><p>M2.5*20 Standoffs</p></td>
-<td><p>4</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<figure class="align-center">
-<img alt="../_images/nuts_in_pockets.jpg" src="../_images/nuts_in_pockets.jpg" />
-</figure>
-</section>
-</section>
+  <section id="setup-ros-environment">
+<h1>Setup ROS Environment<a class="headerlink" href="#setup-ros-environment" title="Link to this heading"></a></h1>
+<p>Do following on both the host machine and the Raspberry Pi</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/jazzy/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export ROS_DOMAIN_ID=99&quot;</span><span class="w">  </span><span class="c1"># use a number between 0 and 101</span>
+</pre></div>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to HomeR’ Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="wiring.html" class="btn btn-neutral float-right" title="Wiring Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="nav_slam.html" class="btn btn-neutral float-left" title="Autonomous Navigation with SLAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
