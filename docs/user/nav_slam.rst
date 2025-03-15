@@ -18,5 +18,3 @@ On Host Machine
    $ source $HOME/homer_ws/install/local_setup.bash
    $ ros2 launch homer_navigation.launch.py
 
-
-
