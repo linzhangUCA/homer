@@ -30,4 +30,7 @@ extensions = [
     # "sphinx.ext.autodoc",
     # "sphinx.ext.napoleon",
     "sphinx.ext.githubpages",
+    "sphinx_copybutton",
 ]
+# Strip input prompts (e.g., "$ ", ">>> ") from copied text
+copybutton_exclude = '.linenos, .gp, .go'
