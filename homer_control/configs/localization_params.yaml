@@ -12,10 +12,10 @@ slam_toolbox:
     map_frame: map
     base_frame: base_footprint
     scan_topic: /scan
-    mode: localization
+    mode: localization  # mapping 
 
     # if you'd like to start localizing on bringup in a map and pose
-    map_file_name: /home/pbd0/homer_ws/src/homer/homer_control/maps/test_map
+    map_file_name: /home/pbd0/homer_ws/src/homer/homer_control/maps/lsc110
     #map_start_pose: [5.0, 1.0, 0.0]
     map_start_at_dock: true
 
