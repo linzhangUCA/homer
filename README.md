@@ -12,7 +12,7 @@ source install/local_setup.bash
 
 ### Start Driver
 
-> On Robot (RPi)
+> On Robot (Raspberry Pi)
 
 ```console
 ros2 launch homer_control bringup_homer.launch.py
