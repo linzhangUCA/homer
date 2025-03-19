@@ -316,9 +316,9 @@ behavior_server:
     robot_base_frame: base_link
     transform_tolerance: 0.1
     simulate_ahead_time: 2.0
-    max_rotational_vel: 1.0
+    max_rotational_vel: 1.57
     min_rotational_vel: 0.4
-    rotational_acc_lim: 3.2
+    rotational_acc_lim: 2.0
 
 waypoint_follower:
   ros__parameters:
@@ -336,10 +336,10 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.5, 0.0, 2.0]
-    min_velocity: [-0.5, 0.0, -2.0]
-    max_accel: [2.5, 0.0, 3.2]
-    max_decel: [-2.5, 0.0, -3.2]
+    max_velocity: [0.64, 0.0, 1.57]
+    min_velocity: [-0.64, 0.0, -1.57]
+    max_accel: [1.5, 0.0, 2.0]
+    max_decel: [-1.5, 0.0, -2.0]
     odom_topic: "odom"
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
