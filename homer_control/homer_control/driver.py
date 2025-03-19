@@ -47,6 +47,7 @@ class VelocityController(Node):
         self.curr_ts = self.get_clock().now()
         # constants
         self.GROUND_CLEARANCE = 0.0375
+        self.get_logger().info("HomeR driver is up.")
 
     def listen_pico_msg(self):
         if self.pico_msngr.inWaiting() > 0:

@@ -7,7 +7,7 @@ class WheelController(WheelDriver):
         # Pin configuration
         super().__init__(driver_ids, encoder_ids)  # call super class's "__init__"
         self.vel_executor = Timer(
-            mode=Timer.PERIODIC, freq=50, callback=self.regulate_velocity
+            mode=Timer.PERIODIC, freq=30, callback=self.regulate_velocity
         )
         # Variables
         self.target_vel = 0.0
@@ -17,25 +17,29 @@ class WheelController(WheelDriver):
         self.diff_err = 0.0
         self.duty = 0
         # Properties
-        self.K_P = 10000.0
-        self.K_I = 50000.0
-        self.K_D = 10000.0
+        # Absolute PID
+        # self.K_P = 10000.0
+        # self.K_I = 50000.0
+        # self.K_D = 10000.0
+        # Incremental PID
+        self.K_P = 16384.0
+        self.K_I = 0.
+        self.K_D = 0.
 
     def regulate_velocity(self, timer):
         self.err = self.target_vel - self.lin_vel
         self.acc_err += self.err  # err_sum = err_sum + err
         self.diff_err = self.err - self.prev_err
         self.prev_err = self.err
-        self.duty = (
-            self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err
-        )  # compute change of duty cycle with PID
+        inc_duty =  self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err
+        self.duty += inc_duty
         if self.duty > 0:  # forward
-            if self.duty > 65025:
-                self.duty = 65025
+            if self.duty > 65535:
+                self.duty = 65535
             self.forward(int(self.duty))
         elif self.duty < 0:  # backward
-            if self.duty < -65025:
-                self.duty = -65025
+            if self.duty < -65535:
+                self.duty = -65535
             self.backward(int(-self.duty))  # self.duty is negative
         else:
             self.stop()
@@ -47,8 +51,9 @@ class WheelController(WheelDriver):
         """
         Set a reference LINEAR VELOCITY for this wheel
         """
-        self.target_vel = target_vel
-        self.acc_err = 0.0
+        if target_vel is not self.target_vel:
+            self.target_vel = target_vel
+            self.acc_err = 0.0
 
 
 # TEST
