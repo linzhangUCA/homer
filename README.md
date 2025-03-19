@@ -10,7 +10,7 @@ colcon build
 source install/local_setup.bash
 ```
 
-### Mapping
+### Start Driver
 
 > On Robot (RPi)
 
@@ -18,7 +18,9 @@ source install/local_setup.bash
 ros2 launch homer_control bringup_homer.launch.py
 ```
 
-> On Host Machine
+### Mapping
+
+> (Recommended) On Host Machine
 
 ```console
 ros2 launch homer_control joy_chart.launch.py
@@ -26,13 +28,7 @@ ros2 launch homer_control joy_chart.launch.py
 
 ### Navigation
 
-> On Robot (RPi)
-
-```console
-ros2 launch homer_control bringup_homer.launch.py
-```
-
-> On Host Machine
+> (Recommended) On Host Machine
 
 ```console
 ros2 launch homer_control navigate.launch.py
