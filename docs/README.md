@@ -1,0 +1,2 @@
+- Documentation of HomeR is powered by [Sphinx](https://www.sphinx-doc.org/en/master/).
+- Doc site construction is guided by olgarithm's [tutorial](https://olgarithms.github.io/sphinx-tutorial/)
