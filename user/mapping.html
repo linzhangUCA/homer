@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wiring Guide &mdash; HomeR  documentation</title>
+  <title>Create A Map &mdash; HomeR  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -22,8 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Autonomous Navigation with SLAM" href="nav_slam.html" />
-    <link rel="prev" title="Assembly Guide" href="assembly.html" /> 
+    <link rel="prev" title="Setup ROS Environment" href="ros_env_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,10 +48,14 @@
               <p class="caption" role="heading"><span class="caption-text">User Guides:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="assembly.html">Assembly Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Wiring Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nav_slam.html">Autonomous Navigation with SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ros_env_setup.html">Setup ROS Environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mapping.html">Create A Map</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Create A Map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bring-up-homer-driver-node">1. Bring Up HomeR Driver Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#joystick-guided-mapping">2. Joystick Guided Mapping</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -69,9 +72,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Wiring Guide</li>
+      <li class="breadcrumb-item active">Create A Map</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/user/wiring.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/user/mapping.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,21 +82,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="wiring-guide">
-<h1>Wiring Guide<a class="headerlink" href="#wiring-guide" title="Link to this heading"></a></h1>
-<p>We use Raspberry Pi Pico2 to interact with a handful of peripheral devices.
-As the 1st gen microcontroller has the same pin layout, you shouldn’t have any issues to use a Pico1.</p>
-<figure class="align-center">
-<img alt="../_images/pico_wiring.png" src="../_images/pico_wiring.png" />
-</figure>
+  <section id="create-a-map">
+<h1>Create A Map<a class="headerlink" href="#create-a-map" title="Link to this heading"></a></h1>
+<p>The map creation will be achieved by the previously set _odom_ frame system and LiDAR scans.
+Two external packages are involved: <a class="reference external" href="https://index.ros.org/p/rplidar_ros/">rplidar_ros</a> and <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a></p>
+<section id="bring-up-homer-driver-node">
+<h2>1. Bring Up HomeR Driver Node<a class="headerlink" href="#bring-up-homer-driver-node" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>bringup_homer.launch.py
+</pre></div>
+</div>
+</section>
+<section id="joystick-guided-mapping">
+<h2>2. Joystick Guided Mapping<a class="headerlink" href="#joystick-guided-mapping" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>joy_chart.launch.py
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="assembly.html" class="btn btn-neutral float-left" title="Assembly Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="nav_slam.html" class="btn btn-neutral float-right" title="Autonomous Navigation with SLAM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ros_env_setup.html" class="btn btn-neutral float-left" title="Setup ROS Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
