@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to HomeR' Base
+Welcome to HomeR's Base
 =======================
 
-Home(plate)R(obot) is a robotics education platform developed for Robotics 1 & 2 at University of Central Arkansas.
+Home(plate)R(obot) is an open source robotics education platform developed for Robotics 2 (ENGR4421) at University of Central Arkansas.
 Keep reading if you are curious about autonomous mobile robot and you want to make one.
 
 
@@ -18,4 +18,5 @@ Keep reading if you are curious about autonomous mobile robot and you want to ma
    user/wiring
    user/nav_slam
    user/ros_env_setup
+   user/mapping
 
