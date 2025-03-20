@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create A Map &mdash; HomeR  documentation</title>
+  <title>SLAM: Mapping &mdash; HomeR  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -51,9 +51,14 @@
 <li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nav_slam.html">Autonomous Navigation with SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ros_env_setup.html">Setup ROS Environment</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Create A Map</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#bring-up-homer-driver-node">1. Bring Up HomeR Driver Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#joystick-guided-mapping">2. Joystick Guided Mapping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SLAM: Mapping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bring-up-homer-driver-node">Bring Up HomeR Driver Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joystick-guided-mapping">Joystick Guided Mapping</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -72,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Create A Map</li>
+      <li class="breadcrumb-item active">SLAM: Mapping</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/user/mapping.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,21 +87,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="create-a-map">
-<h1>Create A Map<a class="headerlink" href="#create-a-map" title="Link to this heading"></a></h1>
-<p>The map creation will be achieved by the previously set _odom_ frame system and LiDAR scans.
-Two external packages are involved: <a class="reference external" href="https://index.ros.org/p/rplidar_ros/">rplidar_ros</a> and <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a></p>
+  <section id="slam-mapping">
+<h1>SLAM: Mapping<a class="headerlink" href="#slam-mapping" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>HomeR can create a map with the help of two external packages: <a class="reference external" href="https://index.ros.org/p/rplidar_ros/">rplidar_ros</a> and <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a>.
+While wandering around, HomeR stitches the laser scans according to its <em>odometry</em> to fabricate a map eventually.
+Brian Douglas made a remarkable video under the topic of <a class="reference external" href="https://www.mathworks.com/videos/autonomous-navigation-part-3-understanding-slam-using-pose-graph-optimization-1594984678407.html">Pose Graph Optimization</a>, which explained the mapping process quite well.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>It would be nice to have a gamepad or a keyboard, so that the mapping process can be achieved by <em>teleoperation</em>.
+To install all the dependencies,</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-jazzy-rplidar-ros<span class="w"> </span>ros-jazzy-slam-toolbox<span class="w"> </span>ros-jazzy-teleop-twist-joy<span class="w"> </span>ros-jazzy-teleop-twist-keyboard
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
 <section id="bring-up-homer-driver-node">
-<h2>1. Bring Up HomeR Driver Node<a class="headerlink" href="#bring-up-homer-driver-node" title="Link to this heading"></a></h2>
+<h3>Bring Up HomeR Driver Node<a class="headerlink" href="#bring-up-homer-driver-node" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>bringup_homer.launch.py
 </pre></div>
 </div>
 </section>
 <section id="joystick-guided-mapping">
-<h2>2. Joystick Guided Mapping<a class="headerlink" href="#joystick-guided-mapping" title="Link to this heading"></a></h2>
+<h3>Joystick Guided Mapping<a class="headerlink" href="#joystick-guided-mapping" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>joy_chart.launch.py
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 
