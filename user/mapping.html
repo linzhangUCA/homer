@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SLAM: Mapping &mdash; HomeR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=8dae8fb0"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=6dbb43f8"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Setup ROS Environment" href="ros_env_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HomeR
+              <img src="../_static/homer_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guides:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Assembly Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nav_slam.html">Autonomous Navigation with SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ros_env_setup.html">Setup ROS Environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SLAM: Mapping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bring-up-homer-interface">Bring Up HomeR Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#teleop-mapping">Teleop Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save-the-map">Save the Map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HomeR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SLAM: Mapping</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user/mapping.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="slam-mapping">
+<h1>SLAM: Mapping<a class="headerlink" href="#slam-mapping" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>While wandering around, HomeR stitches the laser scans according to its <em>odometry</em> to fabricate a map.
+Brian Douglas made a remarkable video under the topic of
+<a class="reference external" href="https://www.mathworks.com/videos/autonomous-navigation-part-3-understanding-slam-using-pose-graph-optimization-1594984678407.html">Pose Graph Optimization</a>
+, which explained the mapping process quite well.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>HomeR creates a map with the help of two ROS packages:
+<a class="reference external" href="https://index.ros.org/p/rplidar_ros/">rplidar_ros</a>
+, which allows ROS to work with the RPLIDAR A1 from
+<a class="reference external" href="https://www.slamtec.com/en/lidar/a1">SLAMTEC</a>
+and
+<a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a>
+to simultaneous localization and mapping (SLAM)
+.</p>
+<p>It would be nice to have a gamepad or a keyboard, so that the mapping can be achieved by “<em>teleoperation</em>”.</p>
+<p>The keyboard teleop requires
+<a class="reference external" href="https://index.ros.org/r/teleop_twist_keyboard/">teleop_twist_keyboard</a>
+package, while
+the gamepad teleop needs
+<a class="reference external" href="https://index.ros.org/p/teleop_twist_joy/">teleop_twist_joy</a>
+package.</p>
+<p>Run following command in terminal to install these dependencies.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-jazzy-rplidar-ros<span class="w"> </span>ros-jazzy-slam-toolbox<span class="w"> </span>ros-jazzy-teleop-twist-joy<span class="w"> </span>ros-jazzy-teleop-twist-keyboard
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="bring-up-homer-interface">
+<h3>Bring Up HomeR Interface<a class="headerlink" href="#bring-up-homer-interface" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Start HomeR driver node.</p></li>
+<li><p>Set up static transforms from <code class="docutils literal notranslate"><span class="pre">base_link</span></code> to <code class="docutils literal notranslate"><span class="pre">base_footprint</span></code> and from <code class="docutils literal notranslate"><span class="pre">base_link</span></code> to <code class="docutils literal notranslate"><span class="pre">lidar_link</span></code>.</p></li>
+<li><p>Launch customized <code class="docutils literal notranslate"><span class="pre">rplidar_composition</span></code> node.</p></li>
+</ul>
+<p><strong>On Raspberry Pi</strong>, launch the HomeR interface in terminal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>bringup_homer.launch.py
+</pre></div>
+</div>
+</section>
+<section id="teleop-mapping">
+<h3>Teleop Mapping<a class="headerlink" href="#teleop-mapping" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Launch <code class="docutils literal notranslate"><span class="pre">teleop_launch.py</span></code> with customed gamepad configurations.</p></li>
+<li><p>Launch <code class="docutils literal notranslate"><span class="pre">online_async_launch.py</span></code> with customed mapping configurations</p></li>
+<li><p>Start up <code class="docutils literal notranslate"><span class="pre">rviz2</span></code> for visualizing map, frames, lidar scans, etc..</p></li>
+</ul>
+<p><strong>On host machine</strong>, launch the gamepad controlled mapping in terminal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>joy_chart.launch.py
+</pre></div>
+</div>
+<p>See an example below</p>
+<figure class="align-center">
+<img alt="../_images/joy_chart.gif" src="../_images/joy_chart.gif" />
+</figure>
+<p>Gamepad is the default choice of teleoperation, feel free to start a <code class="docutils literal notranslate"><span class="pre">teleop_twist_keyboard</span></code> node to drive HomeR with a keyboard.</p>
+</section>
+<section id="save-the-map">
+<h3>Save the Map<a class="headerlink" href="#save-the-map" title="Link to this heading"></a></h3>
+<p><em>(To be continued)</em></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ros_env_setup.html" class="btn btn-neutral float-left" title="Setup ROS Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, linzhanguca.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
