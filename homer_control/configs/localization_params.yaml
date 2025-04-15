@@ -15,7 +15,7 @@ slam_toolbox:
     mode: localization  # mapping 
 
     # if you'd like to start localizing on bringup in a map and pose
-    map_file_name: /home/pbd0/homer_ws/src/homer/homer_control/maps/lsc110
+    map_file_name: /home/pbd0/homer_ws/src/homer/homer_control/maps/sc213
     #map_start_pose: [5.0, 1.0, 0.0]
     map_start_at_dock: true
 

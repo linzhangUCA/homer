@@ -10,7 +10,7 @@ def generate_launch_description():
     teleop_twist_joy_package_path = get_package_share_path('teleop_twist_joy')
     joy_config_path = homer_control_package_path / 'configs/xbox.config.yaml'
     slam_config_path = homer_control_package_path / 'configs/mapping_params.yaml'
-    rviz_config_path = homer_control_package_path / 'rviz/mapping.rviz'
+    rviz_config_path = homer_control_package_path / 'rviz/test.rviz'
         
     sim_time_arg = DeclareLaunchArgument(
         name='use_sim_time',
