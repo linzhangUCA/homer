@@ -8,18 +8,13 @@ from math import pi
 
 def generate_launch_description():
     control_package_path = get_package_share_path("homer_control")
+    joy_config_path = control_package_path / "configs/xbox.config.yaml"
 
     sim_time_arg = DeclareLaunchArgument(
         name="use_sim_time",
         default_value="false",
         choices=["true", "false"],
         description="Flag to enable use simulation time",
-    )
-
-    rplidar_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            str(control_package_path / "launch/rplidar.launch.py")
-        ),
     )
 
     footprint_static_tf_node = Node(
@@ -70,11 +65,25 @@ def generate_launch_description():
 
     driver_node = Node(package="homer_control", executable="driver")
 
+    rplidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            str(control_package_path / "launch/rplidar.launch.py")
+        ),
+    )
+
+    launch_teleop_twist_joy = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            str(get_package_share_path("teleop_twist_joy") / "launch/teleop-launch.py")
+        ),
+        launch_arguments={"config_filepath": str(joy_config_path)}.items(),
+    )
+
     return LaunchDescription(
         [
             sim_time_arg,
             driver_node,
             rplidar_launch,
+            launch_teleop_twist_joy,
             footprint_static_tf_node,
             lidar_static_tf_node,
         ]
