@@ -16,19 +16,19 @@ homer = DiffDriveController(
 cmd_vel_listener = select.poll()
 cmd_vel_listener.register(sys.stdin, select.POLLIN)
 event = cmd_vel_listener.poll()
-target_lin_vel, target_ang_vel = 0.0, 0.0
 
 # LOOP
 try:
     while True:
         # print(homer.lin_vel, homer.ang_vel)  # transmit actual robot velocity to host machine
         for msg, _ in event:
+            target_lin_vel, target_ang_vel = 0.0, 0.0
             buffer = msg.readline().rstrip().split(",")
             if len(buffer) == 2:
                 try:
                     target_lin_vel, target_ang_vel = float(buffer[0]), float(buffer[1])
                 except ValueError:
-                    pass
+                    reset()
             homer.set_vel(target_lin_vel, target_ang_vel)
 except:
     reset()
