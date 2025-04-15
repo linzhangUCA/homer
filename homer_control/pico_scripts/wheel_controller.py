@@ -16,22 +16,20 @@ class WheelController(WheelDriver):
         self.acc_err = 0.0
         self.diff_err = 0.0
         self.duty = 0
-        # Properties
-        # Absolute PID
-        # self.K_P = 10000.0
-        # self.K_I = 50000.0
-        # self.K_D = 10000.0
-        # Incremental PID
+        self.set_vel_counter = 0
+        # Properties: Incremental PID
         self.K_P = 16384.0
-        self.K_I = 0.
-        self.K_D = 0.
+        self.K_I = 0.0
+        self.K_D = 0.0
 
     def regulate_velocity(self, timer):
         self.err = self.target_vel - self.lin_vel
         self.acc_err += self.err  # err_sum = err_sum + err
         self.diff_err = self.err - self.prev_err
         self.prev_err = self.err
-        inc_duty =  self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err
+        inc_duty = (
+            self.K_P * self.err + self.K_I * self.acc_err + self.K_D * self.diff_err
+        )
         self.duty += inc_duty
         if self.duty > 0:  # forward
             if self.duty > 65535:
@@ -46,6 +44,7 @@ class WheelController(WheelDriver):
         # No need for PID control if target velocity is 0
         if self.target_vel == 0:
             self.stop()
+        self.set_vel_counter += 1
 
     def set_lin_vel(self, target_vel):
         """
@@ -54,6 +53,9 @@ class WheelController(WheelDriver):
         if target_vel is not self.target_vel:
             self.target_vel = target_vel
             self.acc_err = 0.0
+        else:
+            if not self.set_vel_counter % 30:
+                self.stop()
 
 
 # TEST
@@ -65,11 +67,10 @@ if __name__ == "__main__":
     print(f"target velocity: {w.target_vel}")
     for v in range(1, 11):
         w.set_lin_vel(v / 10)
-        sleep(1)
+        sleep(1.5)
         print(f"target velocity: {w.target_vel}, actual velocity: {w.lin_vel}")
     for v in reversed(range(10)):
         w.set_lin_vel(v / 10)
-        sleep(1)
+        sleep(1.5)
         print(f"target velocity: {w.target_vel}, actual velocity: {w.lin_vel}")
     w.set_lin_vel(0)
-
