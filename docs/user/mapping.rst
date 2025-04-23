@@ -1,5 +1,7 @@
-SLAM: Mapping
-*************
+.. _slam:
+
+SLAM: Simultaneous Localization and Mapping
+*******************************************
 
 Overview
 ========
