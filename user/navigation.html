@@ -55,8 +55,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-map-path-on-host">Configure Map Path (on <strong>Host</strong>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bring-up-the-homer-driver-interface">Bring Up the HomeR Driver Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#start-navigation-stack">Start Navigation Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bring-up-the-homer-driver-interface-on-rpi">Bring Up the HomeR Driver Interface (on <strong>RPi</strong>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-navigation-stack-on-host">Start Navigation Stack (on <strong>Host</strong>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-goal-pose-on-host">Set Goal Pose (on <strong>Host</strong>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#optional-correct-initial-pose">(Optional) Correct initial pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-goal-pose">Set goal pose</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -120,17 +125,41 @@ Refer to the <a class="reference external" href="https://docs.nav2.org/setup_gui
 </pre></div>
 </div>
 </section>
-<section id="bring-up-the-homer-driver-interface">
-<h2>Bring Up the HomeR Driver Interface<a class="headerlink" href="#bring-up-the-homer-driver-interface" title="Link to this heading"></a></h2>
+<section id="bring-up-the-homer-driver-interface-on-rpi">
+<h2>Bring Up the HomeR Driver Interface (on <strong>RPi</strong>)<a class="headerlink" href="#bring-up-the-homer-driver-interface-on-rpi" title="Link to this heading"></a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>bringup_homer.launch.py
 </pre></div>
 </div>
 </section>
-<section id="start-navigation-stack">
-<h2>Start Navigation Stack<a class="headerlink" href="#start-navigation-stack" title="Link to this heading"></a></h2>
+<section id="start-navigation-stack-on-host">
+<h2>Start Navigation Stack (on <strong>Host</strong>)<a class="headerlink" href="#start-navigation-stack-on-host" title="Link to this heading"></a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>launch<span class="w"> </span>homer_control<span class="w"> </span>navigate.launch.py
 </pre></div>
 </div>
+</section>
+<section id="set-goal-pose-on-host">
+<h2>Set Goal Pose (on <strong>Host</strong>)<a class="headerlink" href="#set-goal-pose-on-host" title="Link to this heading"></a></h2>
+<section id="optional-correct-initial-pose">
+<h3>(Optional) Correct initial pose<a class="headerlink" href="#optional-correct-initial-pose" title="Link to this heading"></a></h3>
+<p>It is possible that HomeR not start at the same pose as the mapping stage.
+In this case, you’ll need to manually set HomeR’s pose using the <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Pose</span> <span class="pre">Estimate</span></code> tool from Rviz.
+Find it in the <code class="docutils literal notranslate"><span class="pre">Tools</span></code> panel (usually on top of the window).
+Observe the true pose of the robot.
+Click <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Pose</span> <span class="pre">Estimate</span></code> button.
+Click and hold left mouse button at the location in the map you think the robot is at.
+Rotate the green arrow, until you think it is pointing to the robots heading direction.</p>
+</section>
+<section id="set-goal-pose">
+<h3>Set goal pose<a class="headerlink" href="#set-goal-pose" title="Link to this heading"></a></h3>
+<p>Find <code class="docutils literal notranslate"><span class="pre">2D</span> <span class="pre">Goal</span> <span class="pre">Pose</span></code> button in the <code class="docutils literal notranslate"><span class="pre">Tools</span></code> panel.
+Click the button.
+Click and hold left mouse button at the location in the map you want to send the robot to.
+Rotate the green arrow, until you think it is pointing to the robot’s end heading direction.</p>
+<p>Refer to the example below:</p>
+<figure class="align-center">
+<img alt="../_images/set_goal_pose.gif" src="../_images/set_goal_pose.gif" />
+</figure>
+</section>
 </section>
 </section>
 

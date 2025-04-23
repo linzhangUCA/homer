@@ -72,8 +72,8 @@ See an example below
     :align: center
 
 
-Save the Map
-============
+Save the Map (on **Host**)
+==========================
 
 Add ``SlamToolboxPlugin`` panel in Rviz.
 ----------------------------------------
