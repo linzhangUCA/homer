@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configure ROS Environment (Post-Installation) &mdash; HomeR  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=8dae8fb0"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=6dbb43f8"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SLAM: Mapping" href="mapping.html" />
+    <link rel="prev" title="Autonomous Navigation with SLAM" href="nav_slam.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HomeR
+              <img src="../_static/homer_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guides:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Assembly Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiring.html">Wiring Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nav_slam.html">Autonomous Navigation with SLAM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configure ROS Environment (Post-Installation)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-ros-by-default-on-rpi-and-host">2. Load ROS by Default (on <strong>RPi and Host</strong>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sanity-check">Sanity Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#set-ros-domain-id-on-rpi-and-host">3. Set ROS Domain ID (on <strong>RPi and Host</strong>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Sanity Check</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synchronize-clock">4. Synchronize Clock</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mapping.html">SLAM: Mapping</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HomeR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configure ROS Environment (Post-Installation)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user/ros_config.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configure-ros-environment-post-installation">
+<h1>Configure ROS Environment (Post-Installation)<a class="headerlink" href="#configure-ros-environment-post-installation" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>We need to distribute the ROS system on two computers: a Raspberry Pi (<strong>RPi</strong>) attaching to the robot; and a off-the-board host computer (<strong>Host</strong>).
+We will let the RPI to handle the hardware interface (Communicate with the micro-controller), and let the Host to do computations required by SLAM and navigation packages.
+You can refer to the official tutorial of <a class="reference external" href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html">Configuring environment</a>.
+And this guide is emphasizing configuring ROS environment on two computers working together.</p>
+</section>
+<section id="load-ros-by-default-on-rpi-and-host">
+<h2>2. Load ROS by Default (on <strong>RPi and Host</strong>)<a class="headerlink" href="#load-ros-by-default-on-rpi-and-host" title="Link to this heading"></a></h2>
+<p>Execute following command in terminal <strong>once</strong> to append line: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/opt/ros/jazzy/setup.bash</span></code> at the end of the <code class="docutils literal notranslate"><span class="pre">$HOME/.bashrc</span></code> file.
+This allows any newly opened terminal to load ROS automatically.
+Or, you’ll have to manually source ROS setup every time you fire up a new terminal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/jazzy/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$HOME</span>/.bashrc
+</pre></div>
+</div>
+<section id="sanity-check">
+<h3>Sanity Check<a class="headerlink" href="#sanity-check" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Close current terminal and open a new one.
+Make sure you don’t see any file not found message in the new terminal.</p></li>
+<li><p>Run following command in terminal.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>topic<span class="w"> </span>list
+</pre></div>
+</div>
+<p>And the expected result should be as follows.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/parameter_events</span>
+<span class="go">/rosout</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="set-ros-domain-id-on-rpi-and-host">
+<h2>3. Set ROS Domain ID (on <strong>RPi and Host</strong>)<a class="headerlink" href="#set-ros-domain-id-on-rpi-and-host" title="Link to this heading"></a></h2>
+<p>Execute following command in terminal <strong>once</strong> to append line: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">ROS_DOMAIN_ID=&lt;id</span> <span class="pre">number&gt;</span></code> at the end of the <code class="docutils literal notranslate"><span class="pre">$HOME/.bashrc</span></code> file.
+This allows the on-board Raspberry Pi to communicate with the host machine, <strong>exclusively</strong>, through your (wireless/wifi) network.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export ROS_DOMAIN_ID=99&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$HOME</span>/.bashrc<span class="w">  </span><span class="c1"># use a number between 0 and 101</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Sanity Check<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Fire up a new terminal on both RPi and Host then type <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">$ROS_DOMAIN_ID</span></code>.
+Compare if the out numbers are identical (or these two computer will lose communication).</p></li>
+<li><p>On RPi, start a <code class="docutils literal notranslate"><span class="pre">talker</span></code> executable to send out messages.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>run<span class="w"> </span>demo_nodes_cpp<span class="w"> </span>talker
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>On Host, start a <code class="docutils literal notranslate"><span class="pre">listener</span></code> executable to receive messages sent from RPi.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ros2<span class="w"> </span>run<span class="w"> </span>demo_nodes_py<span class="w"> </span>listener
+</pre></div>
+</div>
+</section>
+</section>
+<section id="synchronize-clock">
+<h2>4. Synchronize Clock<a class="headerlink" href="#synchronize-clock" title="Link to this heading"></a></h2>
+<p>It is critical to have the RPi and the Host using the same clock.
+And <a class="reference external" href="https://chrony-project.org/">Chrony</a>  can sync the time on both computers via Network Time Protocol (NTP).
+You can also refer to the blog <a class="reference external" href="https://robofoundry.medium.com/how-to-sync-time-between-robot-and-host-machine-for-ros2-ecbcff8aadc4">post</a>.</p>
+<ol class="arabic simple">
+<li><p>Install Chrony (on <strong>RPi</strong> and <strong>Host</strong>)</p></li>
+</ol>
+<p>Fire up a terminal, run following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>chrony
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Configure Chrony on <strong>Host</strong></p></li>
+</ol>
+<p>Open configuration file with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> privilege (You can use any text editor, the example below use <code class="docutils literal notranslate"><span class="pre">nano</span></code>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/chrony/chrony.conf
+</pre></div>
+</div>
+<p>Add following line to the end of the file</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">allow 192.168.0.0/24</span>
+</pre></div>
+</div>
+<p>Restart <code class="docutils literal notranslate"><span class="pre">chronyd</span></code> service on Host</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>chronyd
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Configure Chrony on <strong>RPi</strong></p></li>
+</ol>
+<p>Open configuration file with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> privilege.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/chrony/chrony.conf
+</pre></div>
+</div>
+<p>Add following line to the end of the file</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>server<span class="w"> </span><span class="m">192</span>.168.0.XX<span class="w"> </span>iburst
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">XX</span></code> is your Host’s IP address.
+You can find your Host’s IP address with command <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">route</span></code></p>
+<p>Then restart <code class="docutils literal notranslate"><span class="pre">chronyd</span></code> service on RPi</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>chronyd
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nav_slam.html" class="btn btn-neutral float-left" title="Autonomous Navigation with SLAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mapping.html" class="btn btn-neutral float-right" title="SLAM: Mapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, linzhanguca.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
