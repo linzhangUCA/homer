@@ -16,7 +16,7 @@ Keep reading if you are curious about autonomous mobile robot and you want to ma
 
    user/assembly
    user/wiring
-   user/nav_slam
    user/ros_config
    user/mapping
+   user/navigation
 
