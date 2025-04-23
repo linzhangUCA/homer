@@ -43,17 +43,46 @@ Build ``homer_control`` package afterwards.
    $ colcon build --packages-select homer_control
 
 
-Bring Up the HomeR Driver Interface
-===================================
+Bring Up the HomeR Driver Interface (on **RPi**)
+================================================
 
 .. code-block:: console
 
    $ ros2 launch homer_control bringup_homer.launch.py
 
-Start Navigation Stack
-======================
+Start Navigation Stack (on **Host**)
+====================================
 
 .. code-block:: console
 
    $ ros2 launch homer_control navigate.launch.py
+
+Set Goal Pose (on **Host**)
+===========================
+
+(Optional) Correct initial pose
+-------------------------------
+
+It is possible that HomeR not start at the same pose as the mapping stage.
+In this case, you'll need to manually set HomeR's pose using the ``2D Pose Estimate`` tool from Rviz.
+Find it in the ``Tools`` panel (usually on top of the window). 
+Observe the true pose of the robot.
+Click ``2D Pose Estimate`` button.
+Click and hold left mouse button at the location in the map you think the robot is at.
+Rotate the green arrow, until you think it is pointing to the robots heading direction.
+
+Set goal pose
+-------------
+
+Find ``2D Goal Pose`` button in the ``Tools`` panel.
+Click the button.
+Click and hold left mouse button at the location in the map you want to send the robot to.
+Rotate the green arrow, until you think it is pointing to the robot's end heading direction.
+
+Refer to the example below:
+
+.. figure:: ../images/set_goal_pose.gif
+    :align: center
+
+
 
