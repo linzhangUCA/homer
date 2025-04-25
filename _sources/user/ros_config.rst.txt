@@ -1,3 +1,5 @@
+.. _ros_config:
+
 Configure ROS Environment (Post-Installation)
 **********************************************
 
@@ -8,8 +10,8 @@ We will let the RPI to handle the hardware interface (Communicate with the micro
 You can refer to the official tutorial of `Configuring environment <https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html>`_.
 And this guide is emphasizing configuring ROS environment on two computers working together.
 
-2. Load ROS by Default (on **RPi and Host**)
-============================================
+2. Load ROS by Default (on **RPi** and **Host**)
+================================================
 Execute following command in terminal **once** to append line: ``source /opt/ros/jazzy/setup.bash`` at the end of the ``$HOME/.bashrc`` file.
 This allows any newly opened terminal to load ROS automatically.
 Or, you'll have to manually source ROS setup every time you fire up a new terminal.
