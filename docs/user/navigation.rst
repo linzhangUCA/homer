@@ -1,3 +1,5 @@
+.. _nav:
+
 Autonomous Navigation with SLAM
 *******************************
 
@@ -29,7 +31,7 @@ Use whatever text editor (VSCode below) to open the configuration file for ``sla
 
    $ code $HOME/homer_ws/src/homer_control/configs/localization_params.yaml
 
-Change line 18 to set ``map_file_name`` parameter to the path of the map which you've saved in the :ref:`slam` guide. 
+Change line 18 to set ``map_file_name`` parameter to the path of the map which you've saved in the :ref:`slam` guide.
 
 .. code-block:: yaml
 

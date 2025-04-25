@@ -17,6 +17,7 @@ Keep reading if you are curious about autonomous mobile robot and you want to ma
    user/assembly
    user/wiring
    user/ros_config
+   user/build_homer
    user/slam
    user/navigation
 
